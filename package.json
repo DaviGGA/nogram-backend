@@ -1,0 +1,35 @@
+{
+  "name": "nogram-backend",
+  "version": "1.0.0",
+  "description": "Backend of a instagram clone",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest",
+    "dev": "npx ts-node index.ts --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/router": "^13.1.0",
+    "axios": "^1.7.9",
+    "jsonwebtoken": "^9.0.2",
+    "koa": "^2.15.3",
+    "koa-bodyparser": "^4.4.1",
+    "koa-jwt": "^4.0.4",
+    "pg": "^8.13.1",
+    "reflect-metadata": "^0.2.2",
+    "ts-node": "^10.9.2",
+    "typeorm": "^0.3.20",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/koa__router": "^12.0.4",
+    "@types/koa-bodyparser": "^4.3.12",
+    "@types/koa-jwt": "^3.2.2",
+    "@types/node": "^22.10.1"
+  }
+}
