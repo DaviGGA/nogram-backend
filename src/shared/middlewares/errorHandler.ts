@@ -19,6 +19,8 @@ export async function errorHandler(ctx: Context, next: Next) {
     await next()
   } catch(error: any) {
     
+    console.log(error);
+
     if (isKoaJwtError(error)) { 
       ctx.status = HttpStatus.UNAUTHORIZED;
       ctx.body = {

@@ -4,10 +4,9 @@ import 'dotenv/config'
 import {User} from "../user/models/user"
 import { ApiResponse, ErrorResponse, SuccessResponse } from "../shared/types/ApiResponse";
 import { AuthToken } from "@shared/types/AuthToken";
+import { isApiSuccess } from "./utils/isApiSuccess";
 
-function isApiSuccess<D>(obj: any): obj is SuccessResponse<D> {
-  return obj && obj.data && obj.message
-}
+
 
 describe("Route POST /auth", () => {
 

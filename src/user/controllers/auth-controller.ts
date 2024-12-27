@@ -1,6 +1,7 @@
 import { Context } from "koa";
 import * as userValidator from "../validators/user-validator";
 import * as authService from "../services/auth-service";
+import { UserContext } from "../../shared/types/UserContext";
 
 export async function createUser(ctx: Context) {
   try {
@@ -31,3 +32,4 @@ export async function login(ctx: Context) {
     throw error
   }
 }
+

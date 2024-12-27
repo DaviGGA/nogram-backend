@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@koa/cors": "^5.0.0",
+    "@koa/multer": "^3.0.2",
     "@koa/router": "^13.1.0",
     "axios": "^1.7.9",
     "jsonwebtoken": "^9.0.2",
@@ -29,6 +30,7 @@
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.7",
     "@types/koa__cors": "^5.0.0",
+    "@types/koa__multer": "^2.0.7",
     "@types/koa__router": "^12.0.4",
     "@types/koa-bodyparser": "^4.3.12",
     "@types/koa-jwt": "^3.2.2",
