@@ -1,4 +1,3 @@
-import { AuthToken } from "@shared/types/AuthToken";
 import { EmailAlrealdyUsedException } from "../errors/EmailAlrealdyUsedException";
 import { User } from "../models/user";
 import * as userRepository from "../repositories/user-repository";
@@ -6,8 +5,8 @@ import { UserNotFoundException } from "../errors/UserNotFoundException";
 import { compare, hash } from 'bcrypt';
 import { PasswordMismatchException } from "../errors/PasswordMismatchException";
 import jwt from "jsonwebtoken";
-import { UserEntity } from "@user/entities/user-entity";
-import { UserContext } from "@shared/types/UserContext";
+import { AuthToken } from "src/shared/types/AuthToken";
+import { Entity } from "src/shared/types/Entity";
 
 export async function createUser(user: User): Promise<User> {
   const userAlrealdyExists = await userRepository.findUserByEmail(user.email);
@@ -23,7 +22,7 @@ export async function createUser(user: User): Promise<User> {
 }
 
 export async function login(user: User): Promise<AuthToken> {
-  const foundUser = await userRepository.findUserByEmail(user.email) as UserEntity;
+  const foundUser = await userRepository.findUserByEmail(user.email) as Entity<User>;
   if(!foundUser) throw new UserNotFoundException();
   
   const passwordMatches: boolean = await compare(user.password, foundUser.password);

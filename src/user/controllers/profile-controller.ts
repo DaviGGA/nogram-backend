@@ -1,7 +1,7 @@
-import { UserContext } from "@shared/types/UserContext";
 import { Context } from "koa";
 import * as profileService from "../services/profile-service";
 import { validateProfile } from "../validators/profile-validator";
+import { UserContext } from "src/shared/types/UserContext";
 
 export async function createProfile(ctx: Context) {
   try {

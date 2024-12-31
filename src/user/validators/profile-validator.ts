@@ -1,6 +1,6 @@
 import * as z from "zod";
 import { User } from "../models/user";
-import { Profile } from "@user/models/profile";
+import { Profile } from "../models/profile";
 
 export const nameValidator = z
   .string()

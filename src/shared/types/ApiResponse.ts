@@ -1,5 +1,5 @@
-import { HttpException } from "@shared/errors/HttpException"
 import { ZodError } from "zod"
+import { HttpException } from "../errors/HttpException"
 
 export type ApiResponse<D> = SuccessResponse<D> | ErrorResponse
 

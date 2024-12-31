@@ -1,11 +1,11 @@
-import { Profile } from "@user/models/profile";
-import { User } from "@user/models/user";
 import * as profileRepository from "../repositories/profile-repository";
 import * as userRepository from "../repositories/user-repository";
 import { UserNotFoundException } from "../errors/UserNotFoundException";
-import { UserContext } from "@shared/types/UserContext";
 import { ProfileNotFoundException } from "../errors/ProfileNotFoundException";
 import multer from "@koa/multer";
+import { UserContext } from "src/shared/types/UserContext";
+import { Profile } from "../models/profile";
+import { User } from "../models/user";
 
 
 export async function createProfile(userContext: UserContext, profile: Profile) {
