@@ -46,5 +46,34 @@ describe("Route POST /post", () => {
 
 })
 
+describe("Route GET /post/feed" , () => {
+  const url = process.env.API_TEST + "post/feed";
+
+  it("Getting user feed succesfully", async () => {
+    const userToken = await createUserAndLogin();
+
+    if(!userToken) {
+      expect(userToken).toBeDefined();
+      return
+    }
+
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${userToken}`
+        }
+      })
+
+      expect(response.data).toBeDefined();
+      expect(response.status).toBe(200);
+    } catch(error) {
+      console.log(error);
+      expect(true).toBe(false);
+    }
+  })
+
+  
+})
+
 
 

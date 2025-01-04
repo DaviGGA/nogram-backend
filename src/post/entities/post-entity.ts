@@ -1,5 +1,5 @@
 import { UserEntity } from "../../user/entities/user-entity"
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, JoinColumn } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, JoinColumn, CreateDateColumn } from "typeorm"
 
 @Entity({name: "post"})
 export class PostEntity extends BaseEntity {
@@ -12,7 +12,12 @@ export class PostEntity extends BaseEntity {
     @Column({length: 256, nullable: true})
     description: string
     
+    @CreateDateColumn()
+    created_at: Date
+
     @OneToOne(() => UserEntity)
     @JoinColumn()
     user: UserEntity
+
+
 }

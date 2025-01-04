@@ -7,4 +7,8 @@ export async function createPost(post: Post, userContext: UserContext) {
   return createdProfile;
 }
 
+export async function getFeed() {
+  return await postRepository.getAllPosts();
+}
+
 

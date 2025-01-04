@@ -15,6 +15,7 @@ import path from "path";
 const app = new Koa();
 
 const profileImageDir = path.join(__dirname, 'profile-images');
+const postImageDir = path.join(__dirname, "post-images")
 
 // Middlewares
 app.use(bodyParser());
@@ -29,7 +30,7 @@ app.use(jwt({secret: "super-secret"}))
 app.use(profileRouter.routes());
 app.use(postRouter.routes());
 app.use(mount("/assets/profile-image", serve(profileImageDir)));
-
+app.use(mount("/assets/post-image", serve(postImageDir)));
 
 app.listen(3001, () => {
   console.log("Server open on port 3001")

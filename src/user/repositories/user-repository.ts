@@ -1,6 +1,9 @@
+import { UserContext } from "src/shared/types/UserContext";
 import { AppDataSource } from "../../shared/db/datasource";
 import { UserEntity } from "../entities/user-entity";
+import { Profile } from "../models/profile";
 import { User } from "../models/user";
+import { Entity } from "src/shared/types/Entity";
 
 const userRepository = AppDataSource.getRepository(UserEntity)
 
@@ -25,5 +28,11 @@ export async function findUserByEmail(email: string): Promise<User | null> {
 
 export async function deleteUserById(id: number): Promise<void> {
   await userRepository.delete({id})
+}
+
+export async function updateProfile(profile: Entity<Profile>, user: UserContext) {
+  return await userRepository.update(user.id, {
+    profile: profile
+  })
 }
 

@@ -6,3 +6,4 @@ export const postRouter = new Router({prefix: "/post"});
 const upload = multer({dest: "./post-images"});
 
 postRouter.post("/", upload.single("image") ,postController.createPost);
+postRouter.get("/feed", postController.getFeed);

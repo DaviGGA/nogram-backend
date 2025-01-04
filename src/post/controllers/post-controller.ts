@@ -21,4 +21,18 @@ export async function createPost(ctx: Context) {
   }
 }
 
+export async function getFeed(ctx: Context) {
+  try {
+    const posts = await postService.getFeed();
+
+    ctx.status = 200;
+    ctx.body = {
+      data: posts,
+      message: "User post feed successfully loaded"
+    }
+  } catch(error) {
+    throw error
+  }
+}
+
 

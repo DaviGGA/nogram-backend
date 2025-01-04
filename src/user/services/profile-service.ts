@@ -6,10 +6,13 @@ import multer from "@koa/multer";
 import { UserContext } from "src/shared/types/UserContext";
 import { Profile } from "../models/profile";
 import { User } from "../models/user";
+import { Entity } from "src/shared/types/Entity";
 
 
 export async function createProfile(userContext: UserContext, profile: Profile) {
+  // Should be a transaction
   const createdProfile = await profileRepository.createProfile(userContext, profile);
+  await userRepository.updateProfile(createdProfile as Entity<Profile>, userContext)
   return createdProfile;
 }
 
