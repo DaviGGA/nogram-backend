@@ -23,7 +23,8 @@ export async function createPost(ctx: Context) {
 
 export async function getFeed(ctx: Context) {
   try {
-    const posts = await postService.getFeed();
+    const userContext: UserContext = ctx.state.user;
+    const posts = await postService.getFeed(userContext);
 
     ctx.status = 200;
     ctx.body = {

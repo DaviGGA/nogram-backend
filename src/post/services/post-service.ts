@@ -1,14 +1,20 @@
 import { UserContext } from "src/shared/types/UserContext";
 import { Post } from "../models/Post";
 import * as postRepository from "../repositories/post-repository";
+import { isLiked } from "../logic/post-logic";
+import { CreatePost } from "../validators/create-post-validator";
 
-export async function createPost(post: Post, userContext: UserContext) {
+export async function createPost(post: CreatePost & {image: string}, userContext: UserContext) {
   const createdProfile = await postRepository.createPost(post, userContext);
   return createdProfile;
 }
 
-export async function getFeed() {
-  return await postRepository.getAllPosts();
+export async function getFeed(userContext: UserContext) {
+  const feed = await postRepository.getAllPosts();
+  return feed.map(post => ({
+    ...post, 
+    is_liked: isLiked(post, userContext)
+  }))
 }
 
 

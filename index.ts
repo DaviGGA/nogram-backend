@@ -4,6 +4,7 @@ import "./src/shared/db/datasource";
 import { authRouter } from "./src/user/routers/auth-routes";
 import { profileRouter } from "./src/user/routers/profile-routes";
 import { postRouter } from "./src/post/routers/post-routes";
+import { likeRouter } from "./src/post/routers/like-routes";
 import bodyParser from 'koa-bodyparser';
 import { errorHandler } from "./src/shared/middlewares/errorHandler";
 import jwt from "koa-jwt";
@@ -29,6 +30,7 @@ app.use(jwt({secret: "super-secret"}))
 // Authenticated routes
 app.use(profileRouter.routes());
 app.use(postRouter.routes());
+app.use(likeRouter.routes());
 app.use(mount("/assets/profile-image", serve(profileImageDir)));
 app.use(mount("/assets/post-image", serve(postImageDir)));
 
