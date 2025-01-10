@@ -27,6 +27,11 @@ export async function findProfileById(id: number): Promise<Profile | null> {
   return foundProfile ? toDomain(foundProfile) : null;
 }
 
+export async function findProfileByUsername(username: string): Promise<Profile | null> {
+  const foundProfile = await profileRepository.findOne({where: {username}});
+  return foundProfile ? toDomain(foundProfile) : null;
+}
+
 export async function updateProfileImage(profileId: number, image: string): Promise<void> {
   await profileRepository.update(profileId, {image})
 }

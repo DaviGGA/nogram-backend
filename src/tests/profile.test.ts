@@ -82,4 +82,42 @@ describe("Route GET /profile/me ", () => {
 
 })
 
+describe("Route GET /profile/:username", () => {
+  const url = process.env.API_TEST + "profile/"
+
+  it("Get profile by username successfully", async () => {
+    const userToken = await createUserAndLogin();
+
+    if(!userToken) {
+      expect(userToken).toBeDefined();
+      return
+    }
+
+    const profile = await createProfile(userToken);
+
+    if(!profile) {
+      expect(profile).toBeDefined();
+      return
+    }
+    
+    try {
+      const response = await axios.get<ApiResponse<Profile>>(url + profile.username,{
+        headers: {
+        Authorization: `Bearer ${userToken}` as string
+      }})
+      
+      if(!isApiSuccess(response.data)) return;
+
+      const responseProfile = response.data.data;
+
+      expect(response.status).toBe(200);
+      expect(profile).toMatchObject(responseProfile);
+
+    } catch(err) {
+      expect(true).toBe(false)
+    }
+
+  })
+})
+
 

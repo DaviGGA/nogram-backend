@@ -13,7 +13,7 @@ export const nameValidator = z
     "Name cannot have digits"
   )
 
-const profileSchema = z.object({
+export const profileSchema = z.object({
   first_name: nameValidator,
   surname: nameValidator,
   username: z

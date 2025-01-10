@@ -4,12 +4,14 @@ import { UserEntity } from "../entities/user-entity";
 import { Profile } from "../models/profile";
 import { User } from "../models/user";
 import { Entity } from "src/shared/types/Entity";
+import { UserProfile } from "../models/user-profile";
 
 const userRepository = AppDataSource.getRepository(UserEntity)
 
 function toDomain(userEntity: UserEntity): User {
   return userEntity as User;
 }
+
 
 export async function createUser(user: User): Promise<User> {
   const newUser = await userRepository.save(user);
@@ -24,6 +26,14 @@ export async function findUserById(id: number): Promise<User | null> {
 export async function findUserByEmail(email: string): Promise<User | null> {
   const foundUser = await userRepository.findOne({where: {email}});
   return foundUser ? toDomain(foundUser) : null
+}
+
+export async function findUserProfileByEmail(email: string): Promise<UserProfile | null> {
+  const foundUser = await userRepository.findOne({
+    where: {email},
+    relations: ['profile']
+  });
+  return foundUser as UserProfile;
 }
 
 export async function deleteUserById(id: number): Promise<void> {

@@ -33,3 +33,8 @@ export async function uploadProfileImage(profileId: number, image: multer.File):
   await profileRepository.updateProfileImage(profileId, imageName);
 }
 
+export async function getProfileByUsername(username: string) {
+  const foundProfile = await profileRepository.findProfileByUsername(username);
+  if(!foundProfile) throw new ProfileNotFoundException();
+  return foundProfile;
+}

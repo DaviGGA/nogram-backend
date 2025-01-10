@@ -4,6 +4,7 @@ import "./src/shared/db/datasource";
 import { authRouter } from "./src/user/routers/auth-routes";
 import { profileRouter } from "./src/user/routers/profile-routes";
 import { postRouter } from "./src/post/routers/post-routes";
+import { commentRouter } from "./src/post/routers/comment-routes";
 import { likeRouter } from "./src/post/routers/like-routes";
 import bodyParser from 'koa-bodyparser';
 import { errorHandler } from "./src/shared/middlewares/errorHandler";
@@ -31,6 +32,7 @@ app.use(jwt({secret: "super-secret"}))
 app.use(profileRouter.routes());
 app.use(postRouter.routes());
 app.use(likeRouter.routes());
+app.use(commentRouter.routes())
 app.use(mount("/assets/profile-image", serve(profileImageDir)));
 app.use(mount("/assets/post-image", serve(postImageDir)));
 

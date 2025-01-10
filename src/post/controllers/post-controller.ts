@@ -36,4 +36,20 @@ export async function getFeed(ctx: Context) {
   }
 }
 
+export async function getPostsByUser(ctx: Context) {
+  try {
+    const { id } = ctx.params;
+    const userPosts = await postService.getPostsByUser(id);
+
+    ctx.status = 200;
+    ctx.body = {
+      data: userPosts,
+      message: "Users posts successfully loaded."
+    }    
+
+  } catch(error) {
+    throw error
+  }
+}
+
 

@@ -11,10 +11,13 @@ export async function createPost(post: CreatePost & {image: string}, userContext
 
 export async function getFeed(userContext: UserContext) {
   const feed = await postRepository.getAllPosts();
-  return feed.map(post => ({
+  return feed.map((post: any) => ({
     ...post, 
     is_liked: isLiked(post, userContext)
   }))
 }
 
+export async function getPostsByUser(username: string) {
+  return await postRepository.getPostsByUsername(username);
+}
 

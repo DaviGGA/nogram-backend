@@ -1,6 +1,8 @@
 import { UserEntity } from "../../user/entities/user-entity"
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, JoinColumn, CreateDateColumn, OneToMany } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToOne, JoinColumn, CreateDateColumn, OneToMany, ManyToOne } from "typeorm"
 import { LikeEntity } from "./like-entity"
+import { CommentEntity } from "./comment-entity"
+import { comment } from "postcss"
 
 @Entity({name: "post"})
 export class PostEntity extends BaseEntity {
@@ -16,11 +18,14 @@ export class PostEntity extends BaseEntity {
     @CreateDateColumn()
     created_at: Date
 
-    @OneToOne(() => UserEntity)
+    @ManyToOne(() => UserEntity)
     @JoinColumn()
     user: UserEntity
 
     @OneToMany(() => LikeEntity, like => like.post)
     likes: LikeEntity[]
+
+    @OneToMany(() => CommentEntity, comment => comment.post)
+    comments: CommentEntity[]
 
 }

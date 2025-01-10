@@ -7,6 +7,7 @@ import { PasswordMismatchException } from "../errors/PasswordMismatchException";
 import jwt from "jsonwebtoken";
 import { AuthToken } from "src/shared/types/AuthToken";
 import { Entity } from "src/shared/types/Entity";
+import { UserProfile } from "../models/user-profile";
 
 export async function createUser(user: User): Promise<User> {
   const userAlrealdyExists = await userRepository.findUserByEmail(user.email);
@@ -22,14 +23,19 @@ export async function createUser(user: User): Promise<User> {
 }
 
 export async function login(user: User): Promise<AuthToken> {
-  const foundUser = await userRepository.findUserByEmail(user.email) as Entity<User>;
+  const foundUser = await userRepository.findUserProfileByEmail(user.email) as Entity<UserProfile>;
   if(!foundUser) throw new UserNotFoundException();
   
   const passwordMatches: boolean = await compare(user.password, foundUser.password);
   if(!passwordMatches) throw new PasswordMismatchException();
   
   const token = jwt.sign(
-    {email: foundUser.email, id: foundUser.id},
+    {
+      email: foundUser.email, 
+      id: foundUser.id,
+      username: foundUser.profile?.username,
+      //profile_id: foundUser.profile?.id
+    },
     "super-secret",
     {expiresIn: "3d"}
   )

@@ -66,3 +66,19 @@ export async function getLoggedUserProfile(ctx: Context) {
     throw error
   }
 }
+
+export async function getProfileByUsername(ctx: Context) {
+  try {
+    const { username } = ctx.params;
+    const foundProfile = await profileService.getProfileByUsername(username);
+  
+    ctx.status = 200;
+    ctx.body = {
+      data: foundProfile,
+      message: "Profile successfully found."
+    }
+  } catch(error) {
+    throw error
+  }
+}
+

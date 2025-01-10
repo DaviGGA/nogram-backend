@@ -3,10 +3,11 @@ import { createUserAndLogin } from "./createUserAndLogin";
 import { ApiResponse } from "src/shared/types/ApiResponse";
 import axios from "axios";
 import { isApiSuccess } from "./isApiSuccess";
+import { Entity } from "../../shared/types/Entity";
 
 const postURL = process.env.API_TEST + "profile";
 
-export async function createProfile(userToken: string): Promise<Profile | undefined> {
+export async function createProfile(userToken: string): Promise<Entity<Profile> | undefined> {
 
   const profileBody: Profile = {
     first_name: "John",

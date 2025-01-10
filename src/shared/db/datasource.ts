@@ -1,3 +1,4 @@
+import { CommentEntity } from "../../post/entities/comment-entity";
 import { LikeEntity } from "../../post/entities/like-entity";
 import { PostEntity } from "../../post/entities/post-entity";
 import { ProfileEntity } from "../../user/entities/profile-entity";
@@ -13,7 +14,7 @@ export const AppDataSource = new DataSource({
   database: "nogram",
   synchronize: true,
   logging: true,
-  entities: [UserEntity, ProfileEntity, PostEntity, LikeEntity],
+  entities: [UserEntity, ProfileEntity, PostEntity, LikeEntity, CommentEntity],
   subscribers: [],
   migrations: [],
 })

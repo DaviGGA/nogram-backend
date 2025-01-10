@@ -7,3 +7,4 @@ const upload = multer({dest: "./post-images"});
 
 postRouter.post("/", upload.single("image") ,postController.createPost);
 postRouter.get("/feed", postController.getFeed);
+postRouter.get("/user/:username", postController.getPostsByUser);
