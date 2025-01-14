@@ -1,7 +1,7 @@
 import { AppDataSource } from "../../shared/db/datasource";
 import { UserContext } from "../../shared/types/UserContext";
 import { ProfileEntity } from "./../entities/profile-entity";
-import { Profile } from "./../models/profile";
+import { Profile, ProfileWithUser } from "./../models/profile";
 
 const profileRepository = AppDataSource.getRepository(ProfileEntity);
 
@@ -27,9 +27,12 @@ export async function findProfileById(id: number): Promise<Profile | null> {
   return foundProfile ? toDomain(foundProfile) : null;
 }
 
-export async function findProfileByUsername(username: string): Promise<Profile | null> {
-  const foundProfile = await profileRepository.findOne({where: {username}});
-  return foundProfile ? toDomain(foundProfile) : null;
+export async function findProfileByUsername(username: string): Promise<ProfileWithUser | null> {
+  const foundProfile = await profileRepository.findOne({
+    relations: ["user"],
+    where: {username}}
+  );
+  return foundProfile ? foundProfile : null;
 }
 
 export async function updateProfileImage(profileId: number, image: string): Promise<void> {

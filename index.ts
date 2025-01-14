@@ -6,6 +6,7 @@ import { profileRouter } from "./src/user/routers/profile-routes";
 import { postRouter } from "./src/post/routers/post-routes";
 import { commentRouter } from "./src/post/routers/comment-routes";
 import { likeRouter } from "./src/post/routers/like-routes";
+import { chatRouter } from "./src/chat/routers/chat-routes";
 import bodyParser from 'koa-bodyparser';
 import { errorHandler } from "./src/shared/middlewares/errorHandler";
 import jwt from "koa-jwt";
@@ -13,8 +14,36 @@ import cors from "@koa/cors";
 import serve from "koa-static";
 import mount from "koa-mount";
 import path from "path";
+import { Server } from "socket.io";
+import http from "http";
+import { emit } from "process";
 
 const app = new Koa();
+
+// Socket
+
+const server = http.createServer().listen(3002);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",  
+    methods: ["GET", "POST"],        
+    credentials: true          
+}
+});
+
+io.on("connection", socket => {
+
+  socket.on("join room", ({sender, receiver}) => {
+    const keyRoom = [sender, receiver].sort().join("/");
+    socket.join(keyRoom);
+  })
+
+  socket.on("send message", ({sender, receiver ,message}) => {
+    const keyRoom = [sender, receiver].sort().join("/");
+    io.to(keyRoom).emit("chat message", {message, sender});
+  })
+
+})
 
 const profileImageDir = path.join(__dirname, 'profile-images');
 const postImageDir = path.join(__dirname, "post-images")
@@ -32,7 +61,8 @@ app.use(jwt({secret: "super-secret"}))
 app.use(profileRouter.routes());
 app.use(postRouter.routes());
 app.use(likeRouter.routes());
-app.use(commentRouter.routes())
+app.use(commentRouter.routes());
+app.use(chatRouter.routes());
 app.use(mount("/assets/profile-image", serve(profileImageDir)));
 app.use(mount("/assets/post-image", serve(postImageDir)));
 

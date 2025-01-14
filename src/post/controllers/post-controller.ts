@@ -38,8 +38,8 @@ export async function getFeed(ctx: Context) {
 
 export async function getPostsByUser(ctx: Context) {
   try {
-    const { id } = ctx.params;
-    const userPosts = await postService.getPostsByUser(id);
+    const { username } = ctx.params;
+    const userPosts = await postService.getPostsByUser(username);
 
     ctx.status = 200;
     ctx.body = {

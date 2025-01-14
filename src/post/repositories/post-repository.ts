@@ -64,12 +64,12 @@ export async function getPostsByUsername(username: string): Promise<Omit<FeedPos
     ],
     where: {
       user: {
-        profile: {username}
+        profile: {username: username}
       }
     }
   })
 
-  return posts.map(mapFeedPost);
+  return posts.map(mapFeedPost)
 }
 
 

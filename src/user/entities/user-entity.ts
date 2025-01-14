@@ -15,5 +15,5 @@ export class UserEntity extends BaseEntity {
 
     @OneToOne(() => ProfileEntity, {nullable: true})
     @JoinColumn()
-    profile: Profile | null; 
+    profile: ProfileEntity | null; 
 }

@@ -1,3 +1,5 @@
+import { MessageEntity } from "../../chat/entities/message-entity";
+import { ChatEntity } from "../../chat/entities/chat-entity";
 import { CommentEntity } from "../../post/entities/comment-entity";
 import { LikeEntity } from "../../post/entities/like-entity";
 import { PostEntity } from "../../post/entities/post-entity";
@@ -13,8 +15,8 @@ export const AppDataSource = new DataSource({
   password: "postgres",
   database: "nogram",
   synchronize: true,
-  logging: true,
-  entities: [UserEntity, ProfileEntity, PostEntity, LikeEntity, CommentEntity],
+  logging: false,
+  entities: [UserEntity, ProfileEntity, PostEntity, LikeEntity, CommentEntity, ChatEntity, MessageEntity],
   subscribers: [],
   migrations: [],
 })

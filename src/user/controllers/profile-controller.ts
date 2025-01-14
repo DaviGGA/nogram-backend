@@ -70,11 +70,12 @@ export async function getLoggedUserProfile(ctx: Context) {
 export async function getProfileByUsername(ctx: Context) {
   try {
     const { username } = ctx.params;
-    const foundProfile = await profileService.getProfileByUsername(username);
-  
+    const {user, ...profile} = await profileService.getProfileByUsername(username);
+    const {password: _, ...userWithoutPassword} = user;
+
     ctx.status = 200;
     ctx.body = {
-      data: foundProfile,
+      data: {...profile, user: userWithoutPassword},
       message: "Profile successfully found."
     }
   } catch(error) {
