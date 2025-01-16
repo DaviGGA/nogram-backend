@@ -8,7 +8,6 @@ export async function createChatIfNotExist(ctx: Context) {
     const userContext: UserContext = ctx.state.user;
 
     const newChat = await chatService.createChatIfNotExist(userContext, id)
-    console.log("CONTROLLER", newChat)
     ctx.status = 201;
     ctx.body = {
       data: newChat,

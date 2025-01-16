@@ -8,6 +8,7 @@ import jwt from "jsonwebtoken";
 import { AuthToken } from "src/shared/types/AuthToken";
 import { Entity } from "src/shared/types/Entity";
 import { UserProfile } from "../models/user-profile";
+import 'dotenv/config';
 
 export async function createUser(user: User): Promise<User> {
   const userAlrealdyExists = await userRepository.findUserByEmail(user.email);
@@ -34,9 +35,8 @@ export async function login(user: User): Promise<AuthToken> {
       email: foundUser.email, 
       id: foundUser.id,
       username: foundUser.profile?.username,
-      //profile_id: foundUser.profile?.id
     },
-    "super-secret",
+    process.env.JWT_SECRET!,
     {expiresIn: "3d"}
   )
   

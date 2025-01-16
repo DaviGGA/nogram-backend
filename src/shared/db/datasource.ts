@@ -6,14 +6,15 @@ import { PostEntity } from "../../post/entities/post-entity";
 import { ProfileEntity } from "../../user/entities/profile-entity";
 import { UserEntity } from "../../user/entities/user-entity";
 import { DataSource } from "typeorm";
+import 'dotenv/config';
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: "localhost",
+  host: process.env.HOST!,
   port: 5432,
-  username: "postgres",
-  password: "postgres",
-  database: "nogram",
+  username: process.env.DB_USERNAME!,
+  password: process.env.DB_PASSWORD!,
+  database: process.env.DATABASE!,
   synchronize: true,
   logging: false,
   entities: [UserEntity, ProfileEntity, PostEntity, LikeEntity, CommentEntity, ChatEntity, MessageEntity],
